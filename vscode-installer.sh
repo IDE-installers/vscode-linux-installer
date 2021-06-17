@@ -22,7 +22,7 @@ function configure(){
 
 # function to begin the instalation
 function install(){
-    printf "Installing VSCode..."
+    printf "\nInstalling VSCode...\n"
     set -e
 
     case $PM in
