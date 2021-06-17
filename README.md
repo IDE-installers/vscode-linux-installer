@@ -2,9 +2,9 @@
 
 This bash script installs the latest VSCode version.
 
-It contains shell commands to install VSCode from
--[here](https://code.visualstudio.com/docs/setup/linux)
--[and here](https://linuxhint.com/install_visual_studio_code_arch_linux/)
+It contains shell commands to install VSCode from:
+- [here](https://code.visualstudio.com/docs/setup/linux)
+- [and here](https://linuxhint.com/install_visual_studio_code_arch_linux/)
 
 Tested on #--
 
