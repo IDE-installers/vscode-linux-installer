@@ -23,16 +23,15 @@ function configure(){
 # function to begin the instalation
 function install(){
     printf "Installing VSCode..."
+    set -e
 
     case $PM in
 
         SNAP | snap )
-            set -e
             sudo snap install --classic code # or code-insiders
             ;;
 
         APT | apt)
-            set -e
             wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
             sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
             sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -43,7 +42,6 @@ function install(){
             ;;
 
         DNF | dnf)
-            set -e
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
             sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
             sudo dnf check-update
@@ -51,7 +49,6 @@ function install(){
             ;;
 
         YUM | yum)
-            set -e
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
             sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
             sudo yum check-update
@@ -59,7 +56,6 @@ function install(){
             ;;
 
         ZYPPER | zypper)
-            set -e
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
             sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo'
             sudo zypper refresh
@@ -67,7 +63,6 @@ function install(){
             ;;
 
         PACMAN | pacman)
-            set -e
             git clone https://aur.archlinux.org/visual-studio-code-bin.git
             cd visual-studio-code-bin/
             echo "Y" | makepkg -s # ' echo "Y" | ' is to automatically say 'yes', to confirm the instalation
@@ -76,7 +71,6 @@ function install(){
             ;;
 
         NIX | nix)
-            set -e
             nix-env -i vscode
             ;;
 
