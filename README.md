@@ -20,3 +20,9 @@ After executing this script you have to:
 1. Choose which package manager you are using
 2. Maybe you'll have to confirm the installation and enter sudo password
 3. Wait until script will install VSCode
+
+# Note
+If VSCode is installing very slowly, using this script, (this actually happened to me, on my Fedora 34 machine) then try just installing it from here:
+https://code.visualstudio.com/Download
+
+This worked for me.
