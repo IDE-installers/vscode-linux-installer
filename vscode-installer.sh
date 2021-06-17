@@ -65,8 +65,8 @@ function install(){
         PACMAN | pacman)
             git clone https://aur.archlinux.org/visual-studio-code-bin.git
             cd visual-studio-code-bin/
-            echo "Y" | makepkg -s # ' echo "Y" | ' is to automatically say 'yes', to confirm the instalation
-            echo "Y" | sudo pacman -U visual-studio-code-bin-*.pkg.tar.xz
+            makepkg -s
+            sudo pacman -U visual-studio-code-bin-*.pkg.tar.xz
             cd ../ && sudo rm -rf visual-studio-code-bin/
             ;;
 
