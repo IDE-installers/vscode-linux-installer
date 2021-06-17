@@ -6,8 +6,6 @@ It contains shell commands to install VSCode from:
 - [here](https://code.visualstudio.com/docs/setup/linux)
 - [and here](https://linuxhint.com/install_visual_studio_code_arch_linux/)
 
-Tested on #--
-
 This script should work on **all** Linux distributions.
 
 # Usage
