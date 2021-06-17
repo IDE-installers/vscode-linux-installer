@@ -19,3 +19,4 @@ bash vscode-installer.sh
 After executing this script you have to:
 1. Choose which package manager you are using
 2. Wait until script will install VSCode
+3. Maybe you'll also have to confirm the instalation and enter sudo password
