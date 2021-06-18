@@ -22,7 +22,5 @@ After executing this script you have to:
 3. Wait until script will install VSCode
 
 # Note
-If VSCode is installing very slowly, using this script, (this actually happened to me, on my Fedora 34 machine) then try just installing it from here:
+If VSCode is installing very slowly using this script, then try just installing it from here:
 https://code.visualstudio.com/Download
-
-This worked for me.
