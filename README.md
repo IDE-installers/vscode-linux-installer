@@ -22,5 +22,4 @@ After executing this script you have to:
 3. Wait until script will install VSCode
 
 # Note
-If VSCode is installing very slowly using this script, then try just installing it from here:
-https://code.visualstudio.com/Download
+If VSCode is installing very slowly using this script, then try just installing it from it's [official website](https://code.visualstudio.com), from [here](https://code.visualstudio.com/Download)
