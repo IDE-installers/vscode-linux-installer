@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Visual Studio Code installer for Linux
 
 ### This shell commands to install VSCode are taken from: 
