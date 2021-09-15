@@ -25,7 +25,7 @@ function configure(){
     elif [ -f /bin/yum ]; then
         PM=yum
 
-    elif [ -f /bin/zypper ]; then
+    elif [ -f /bin/zypp ]; then
         PM=zypper
 
     elif [ -f /bin/nix ]; then
