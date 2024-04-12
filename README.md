@@ -10,6 +10,15 @@ This script should work on **most of** Linux distributions.
 
 It supports the following package managers: **apt**, **dnf**, **zypper**, **snap**, **pacman**, **yum**, **nix**
 
+# Note
+***Sometimes the commands to install VScode can be changed by the Devs, so at some point my script will become outdated.*** 
+
+***And scince I don't monitor the commands (from the official site) that often, I would recommend first checking them, and after that only running my scripts.***
+
+***I will eventually check and if needed, edit (update) my scripts.***
+
+***My scripts just contain this official commands, plus a bunch of if's, functions and a switch case to make it all function correctly***
+
 # Usage
 ```
 sudo bash vscode-installer.sh
