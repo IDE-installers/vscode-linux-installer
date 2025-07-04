@@ -16,9 +16,6 @@ function configure(){
     elif [ -f /bin/apt ]; then
         PM=apt
 
-    elif [ -f /bin/pacman ]; then
-        PM=pacman
-
     elif [ -f /bin/dnf ]; then
         PM=dnf
 
@@ -32,7 +29,7 @@ function configure(){
         PM=nix
 
     else 
-        echo "Sorry, I don't know what to do"
+        echo "Sorry, your distribution isn't supported"
         exit 1
     fi
 
@@ -45,52 +42,48 @@ function install(){
 
     case $PM in
 
-        snap )
-            sudo snap install --classic code # or code-insiders
-            ;;
-
         apt)
             sudo apt-get install wget gpg
             wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
             sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-            sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+            echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
             rm -f packages.microsoft.gpg
-            sudo apt install apt-transport-https -y
+            
+            sudo apt install apt-transport-https
             sudo apt update
-            sudo apt install code -y
+            sudo apt install code # or code-insiders
             ;;
 
         dnf)
+#           stable 64-bit VS Code for RHEL, Fedora, or CentOS
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-            sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-            sudo dnf install code -y
+            echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+
+            dnf check-update
+            sudo dnf install code # or code-insiders
             ;;
 
         yum)
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-            sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-            sudo yum install code -y
+            echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+
+            yum check-update
+            sudo yum install code # or code-insiders
             ;;
 
         zypper)
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-            sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo'
-            sudo zypper refresh
-            sudo zypper install code
-            ;;
+            echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" |sudo tee /etc/zypp/repos.d/vscode.repo > /dev/null
 
-        pacman)
-#           Check if git is installed
-            ! [[ `command -v git` ]] && sudo pacman -S git --noconfirm
-            git clone https://AUR.archlinux.org/visual-studio-code-bin.git
-            cd visual-studio-code-bin/
-            makepkg -s
-            sudo pacman -U visual-studio-code-bin-*.pkg.tar.xz
-            cd ../ && sudo rm -rf visual-studio-code-bin/
+            sudo zypper install code
             ;;
 
         nix)
             nix-env -i vscode
+            ;;
+
+        snap)
+            sudo snap install --classic code # or code-insiders
             ;;
 
     esac
