@@ -8,6 +8,56 @@ set -e
 # https://code.visualstudio.com/docs/setup/linux
 ###
 
+# function to check if a command exists
+function check_cmd(){
+    if ! [ `command -v $1`  >/dev/null 2>&1 ]; then
+        echo "Sorry, '$1' package required, install it with your system's package manager"
+        exit 1
+    fi
+}
+
+function check(){
+#   before doing any checks, make sure that these three packages are installed: curl, sed, wget
+    check_cmd wget
+    check_cmd curl
+    check_cmd sed
+
+    remote_check="https://raw.githubusercontent.com/IDE-installers/vscode-linux-installer/main/vscode-installer.sh"
+
+#   check internet connection
+    wget -q --spider http://google.com # <-- can use another server too
+
+    if [ $? -ne 0 ]; then
+        echo "Sorry, looks like you're offline, check your internet connection"
+        exit 1
+    fi
+
+#   Check if there is a new script release available
+#   fetch the second line
+    check_line=$(curl -sfL "$remote_check" | sed -n '2p')
+    if [ -z "$check_line" ]; then
+        echo "Something went wrong" >&2
+        exit 1
+    fi
+#   and see if a new version is available
+    if [[ $check_line =~ check=\"?([0-9]+)\"? ]]; then
+        remote_check="${BASH_REMATCH[1]}"
+    else
+        echo "Unable to parse remote check from: $check_line" >&2
+        exit 1
+    fi
+
+    if [[ remote_check -gt check ]]; then
+        echo "A newer version of installer is available: $remote_check (currently using: $check)"
+        echo "It's recommended to use the latest version scince this one has a chance of not working properly anymore"
+        echo -e "Download latest version with:\nwget -N https://raw.githubusercontent.com/ide-installers/vscode-linux-installer/main/vscode-installer.sh"
+    exit
+    
+    else
+        echo -e "Up to date"
+    fi
+}
+
 # check what package manager user uses
 function configure(){
 
@@ -102,5 +152,6 @@ Signed-By: /usr/share/keyrings/microsoft.gpg" > /etc/apt/sources.list.d/vscode.s
 }
 
 printf "Visual Studio Code installer for Linux\n"
+check
 configure
 install
