@@ -1,4 +1,6 @@
 #!/bin/bash
+check=100
+
 set -e
 # Visual Studio Code installer for Linux
 
