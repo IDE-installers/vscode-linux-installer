@@ -115,11 +115,8 @@ Signed-By: /usr/share/keyrings/microsoft.gpg" > /etc/apt/sources.list.d/vscode.s
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
             echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-
             dnf check-update
             sudo dnf install code -y # or code-insiders
-
-
             ;;
 #           You can manually download and install the VS Code .rpm package (64-bit)
 #           however, auto-updating won't work unless the repository above is installed
@@ -127,7 +124,6 @@ Signed-By: /usr/share/keyrings/microsoft.gpg" > /etc/apt/sources.list.d/vscode.s
 #           For older versions using YUM
             sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
             echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
-
 
             yum check-update
             sudo yum install code -y # or code-insiders
