@@ -48,9 +48,9 @@ function check(){
     fi
 
     if [[ remote_check -gt check ]]; then
-        echo "A newer version of installer is available: $remote_check (currently using: $check)"
+        echo -e "\nA newer version of installer is available: $remote_check (currently using: $check)"
         echo "It's recommended to use the latest version scince this one has a chance of not working properly anymore"
-        echo -e "Download latest version with:\nwget -N https://raw.githubusercontent.com/ide-installers/vscode-linux-installer/main/vscode-installer.sh"
+        echo -e "\nDownload latest version with:\nwget -N https://raw.githubusercontent.com/ide-installers/vscode-linux-installer/main/vscode-installer.sh"
     exit
     
     else
