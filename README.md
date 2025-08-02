@@ -18,5 +18,5 @@ bash vscode-installer.sh
 ```
 After executing this script, maybe you'll have to confirm the installation and enter sudo password
 
-# Note
-This script manually installs VSCode, but you can install it directly from its .deb package (on Debian based distros) [here](https://code.visualstudio.com/docs/setup/linux)
+## Note for Debian and Ubuntu Distros
+You can directly install VSCode from its .deb package as seen [here](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions)
